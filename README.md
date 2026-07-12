@@ -1,20 +1,49 @@
-### Express - Apollo
+# Express Apollo GraphQL API
 
-The demo of [GraphQL](https://graphql.org/) via [Express](https://expressjs.com/) + [Apollo](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-express)
+A minimal GraphQL API server demonstrating Express integrated with Apollo Server, with a pluggable database layer supporting MongoDB or SQL Server.
 
-#### Installation
-run the command below in the project directory  
-`yarn` <small>or</small> `npm install`
+## What's inside
 
-configure database setting at `config/index.js` (copy from `index.example` if not exist)
+- Express server (`app.js`) wired up with `cookie-parser` and `body-parser`
+- Apollo Server mounted on Express via `apollo-server-express`, exposing a GraphQL endpoint with a `hello` query and a `Book` type definition
+- A REST route (`GET /api/v1/users`) alongside the GraphQL endpoint
+- A database module (`db/index.js`) that can connect to either MongoDB (via Mongoose) or SQL Server (via `mssql`), selected by a driver name passed to `connect()`; the app currently connects using the `mongodb` driver
+- Example config file (`config/index.example`) with connection strings for both drivers
 
-#### Run
+## Tech stack
 
-to start the server run  
-`yarn start` <small>or</small> `npm run start`  
+- Node.js, Express
+- Apollo Server, GraphQL
+- Mongoose (MongoDB) / mssql (SQL Server)
 
-or to watch source changes run (this option require [nodemon](https://www.npmjs.com/package/nodemon) package)  
-`yarn watch` <small>or</small> `npm run watch`  
+## Quickstart
 
+```bash
+yarn install
+cp config/index.example config/index.js   # edit connection strings as needed
+yarn start
+```
 
-access GraphQL playground at: http://localhost:3000/graphql
+Or, to auto-restart on source changes (requires `nodemon`):
+
+```bash
+yarn watch
+```
+
+The server listens on port 3000 by default (override with the `PORT` environment variable).
+
+## Endpoints
+
+- `POST/GET /graphql` - GraphQL endpoint and playground (Apollo Server)
+- `GET /api/v1/users` - REST route returning a static list of users
+
+## Project structure
+
+```
+app.js            # Express app setup, middleware, DB connect
+bin/www           # HTTP server bootstrap
+config/           # DB connection config (copy from index.example)
+db/               # Database connection module (MongoDB / SQL Server)
+graphql/          # Apollo Server instance, schema, type definitions
+routes/           # REST routes
+```
