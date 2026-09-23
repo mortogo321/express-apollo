@@ -19,15 +19,15 @@ A minimal GraphQL API server demonstrating Express integrated with Apollo Server
 ## Quickstart
 
 ```bash
-yarn install
+bun install
 cp config/index.example config/index.js   # edit connection strings as needed
-yarn start
+bun run start
 ```
 
 Or, to auto-restart on source changes (requires `nodemon`):
 
 ```bash
-yarn watch
+bun run watch
 ```
 
 The server listens on port 3000 by default (override with the `PORT` environment variable).
